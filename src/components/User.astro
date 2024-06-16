@@ -2,6 +2,8 @@
 import { getSession } from 'auth-astro/server'
 import { SignIn, SignOut } from 'auth-astro/components'
 
+const providers = ['github', 'reddit'] as const
+
 const session = await getSession(Astro.request)
 ---
 
@@ -9,7 +11,13 @@ const session = await getSession(Astro.request)
   session ? (
     <SignOut>Logout</SignOut>
   ) : (
-    <SignIn provider="github">Login with GitHub</SignIn>
+    <div>
+      {providers.map((provider) => (
+        <SignIn key={provider} provider={provider}>
+          Sign in with {provider}
+        </SignIn>
+      ))}
+    </div>
   )
 }
 <p>
@@ -18,7 +26,9 @@ const session = await getSession(Astro.request)
       <>
         Logged in as {session.user.email}
         {`(${session.user.name})`}
-        <img width="150" src={session.user.image} alt={session.user.name} />
+        {session.user.image && (
+          <img width="150" src={session.user.image} alt={session.user.name} />
+        )}
       </>
     ) : (
       'Not logged in'
