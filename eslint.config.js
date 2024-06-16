@@ -8,4 +8,7 @@ export default [
       'astro/semi': 'off',
     },
   },
+  {
+    ignores: ['.vercel/*'],
+  },
 ]
