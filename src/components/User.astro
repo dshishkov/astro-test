@@ -1,0 +1,27 @@
+---
+import { getSession } from 'auth-astro/server'
+import { SignIn, SignOut } from 'auth-astro/components'
+
+const session = await getSession(Astro.request)
+---
+
+{
+  session ? (
+    <SignOut>Logout</SignOut>
+  ) : (
+    <SignIn provider="github">Login with GitHub</SignIn>
+  )
+}
+<p>
+  {
+    session ? (
+      <>
+        Logged in as {session.user.email}
+        {`(${session.user.name})`}
+        <img width="150" src={session.user!.image} alt={session.user!.name} />
+      </>
+    ) : (
+      'Not logged in'
+    )
+  }
+</p>
