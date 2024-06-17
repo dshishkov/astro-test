@@ -9,17 +9,15 @@ const session = await getSession(Astro.request)
 
 {
   session ? (
-  <SignOut>Logout</SignOut>
-    ) : (
-  <div>
-    {providers.map((provider) => (
-      <SignIn provider={provider}>
-        Sign in with {provider}
-      </SignIn>
-    ))}
-  </div>
-    )
-  }
+    <SignOut>Logout</SignOut>
+  ) : (
+    <div>
+      {providers.map((provider) => (
+        <SignIn provider={provider}>Sign in with {provider}</SignIn>
+      ))}
+    </div>
+  )
+}
 <p>
   {
     session?.user ? (
